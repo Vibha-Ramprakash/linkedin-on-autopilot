@@ -62,7 +62,11 @@ th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mid)
 footer{border-top:1px solid var(--warm);padding:30px 0 60px;color:var(--mid);font-size:14.5px;text-align:center}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--dark);color:var(--cream);padding:9px 18px;border-radius:999px;font-weight:600;transition:transform .3s}
 .toast.on{transform:translate(-50%,0)}
-@media(max-width:860px){.layout{grid-template-columns:1fr}nav.toc{display:none}.grid3,.grid2{grid-template-columns:1fr}.cta.ghost{margin:10px 0 0}}
+.layout>*,main,section{min-width:0}
+.prompt,td,p,li{overflow-wrap:anywhere}
+html,body{overflow-x:hidden}
+@media(max-width:860px){.layout{grid-template-columns:1fr;padding-top:10px}nav.toc{display:none}.grid3,.grid2{grid-template-columns:1fr}.cta{display:block;margin:22px auto 0;max-width:320px}.cta.ghost{margin:10px auto 0}}
+@media(max-width:600px){body{font-size:16px}.wrap{padding:0 16px}header.hero{padding:44px 0 28px}.lede{font-size:17px}h2{font-size:29px}.prompt{font-size:13px;padding:44px 16px 16px}.copy{top:10px;right:10px}.card,.opt{padding:16px}table{font-size:13.5px}th,td{padding:8px}.shots img{height:220px}section{margin-bottom:44px}}
 </style>
 </head>
 <body>
