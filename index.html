@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LinkedIn on Autopilot · Vibha</title>
+<meta name="description" content="The full setup: teach Claude your voice, install 12 free LinkedIn skills, connect Typefully, plan your week and publish. It drafts, you approve.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F5F0E8;--warm:#E8DFD3;--card:#FFFCF8;--berry:#A8174A;--burgundy:#7A1B1B;--dark:#2D2320;--mid:#7A6B62;--sage:#6B8856;--pink:#F2B8C6;--ok:#1D6B3A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--cream:#1C1716;--warm:#3A302C;--card:#251F1D;--dark:#F3ECE3;--mid:#B8AA9F;--pink:#5A2A3A}}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--dark);font:17px/1.65 'DM Sans',sans-serif}
+a{color:var(--berry)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.hero{padding:64px 0 40px;text-align:center;background:radial-gradient(800px 340px at 70% 0%,rgba(242,184,198,.55),transparent 70%),radial-gradient(700px 300px at 15% 10%,rgba(232,223,211,.9),transparent 70%)}
+.badge{display:inline-flex;gap:8px;align-items:center;background:var(--dark);color:var(--cream);font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:7px 14px;border-radius:999px}
+h1{font:700 clamp(42px,7vw,76px)/1.05 'Playfair Display',serif;margin:18px 0 10px}
+h1 em{color:var(--berry)}
+.lede{font-size:20px;color:var(--mid);max-width:680px;margin:0 auto}
+.pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px}
+.pill{font-size:13.5px;font-weight:600;padding:6px 13px;border-radius:999px;background:var(--card);border:1px solid var(--warm)}
+.cta{display:inline-block;margin-top:26px;background:var(--berry);color:#fff;text-decoration:none;font-weight:700;padding:13px 24px;border-radius:999px}
+.cta.ghost{background:transparent;color:var(--berry);border:2px solid var(--berry);margin-left:8px}
+.layout{display:grid;grid-template-columns:230px 1fr;gap:40px;padding:30px 0 80px}
+nav.toc{position:sticky;top:20px;align-self:start;font-size:14.5px}
+nav.toc b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+nav.toc a{display:block;color:var(--dark);text-decoration:none;padding:5px 10px;border-left:2px solid var(--warm)}
+nav.toc a:hover{border-color:var(--berry);color:var(--berry)}
+section{margin-bottom:56px;scroll-margin-top:20px}
+.step{display:inline-block;font:500 13px 'JetBrains Mono',monospace;color:var(--berry);background:rgba(168,23,74,.09);padding:4px 10px;border-radius:8px;margin-bottom:8px}
+h2{font:700 36px/1.15 'Playfair Display',serif;margin-bottom:12px}
+h3{font-size:19px;margin:22px 0 8px}
+p{margin-bottom:12px}
+ul,ol{margin:0 0 14px 22px}
+li{margin-bottom:6px}
+.card{background:var(--card);border:1px solid var(--warm);border-radius:18px;padding:20px 22px;margin:16px 0}
+.note{border-left:4px solid var(--berry);background:var(--card);border-radius:0 14px 14px 0;padding:14px 18px;margin:16px 0;font-size:15.5px}
+.note.ok{border-color:var(--sage)}
+.prompt{position:relative;background:var(--dark);color:var(--cream);border-radius:16px;padding:20px 22px 18px;margin:14px 0;font:14.5px/1.6 'JetBrains Mono',monospace;white-space:pre-wrap}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .prompt{background:#0F0C0B;color:#EDE5DA;border:1px solid var(--warm)}}
+.prompt .lbl{display:block;font:700 11px 'DM Sans';letter-spacing:.1em;text-transform:uppercase;color:#E9A6BB;margin-bottom:8px}
+.copy{position:absolute;top:12px;right:12px;font:600 12.5px 'DM Sans';background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 12px;cursor:pointer}
+.copy:hover{background:var(--berry)}
+code{font:500 14px 'JetBrains Mono',monospace;background:rgba(168,23,74,.08);padding:2px 6px;border-radius:6px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:16px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.opt{background:var(--card);border:1px solid var(--warm);border-radius:16px;padding:16px 18px}
+.opt .n{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--berry);color:#fff;font-weight:700;margin-bottom:8px}
+.opt h4{font-size:18px;margin-bottom:4px}
+.opt small{display:block;color:var(--mid);font-size:13.5px;margin-top:8px}
+.tag{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:#E7F3EC;color:var(--ok);display:inline-block;margin-left:6px;vertical-align:middle}
+.tag.paid{background:#FBE6EC;color:var(--berry)}
+.shots{display:flex;gap:10px;overflow-x:auto;padding:6px 0}
+.shots img{height:280px;border-radius:12px;border:1px solid var(--warm)}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:12px 0;background:var(--card);border-radius:14px;overflow:hidden}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--warm);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mid)}
+.check li{list-style:none;margin-left:-22px;padding-left:28px;position:relative}
+.check li::before{content:"✓";position:absolute;left:4px;color:var(--sage);font-weight:700}
+footer{border-top:1px solid var(--warm);padding:30px 0 60px;color:var(--mid);font-size:14.5px;text-align:center}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,80px);background:var(--dark);color:var(--cream);padding:9px 18px;border-radius:999px;font-weight:600;transition:transform .3s}
+.toast.on{transform:translate(-50%,0)}
+@media(max-width:860px){.layout{grid-template-columns:1fr}nav.toc{display:none}.grid3,.grid2{grid-template-columns:1fr}.cta.ghost{margin:10px 0 0}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">● The full guide · @vibha.in.progress</span>
+    <h1>LinkedIn on <em>Autopilot</em></h1>
+    <p class="lede">Teach Claude your voice, install 12 free LinkedIn skills, connect Typefully, plan a whole week and publish from one place. Well, almost autopilot: <b>it drafts, you approve.</b></p>
+    <div class="pills"><span class="pill">⏱ About 45 minutes to set up</span><span class="pill">💸 Mostly free</span><span class="pill">🧑‍💻 No coding</span><span class="pill">✅ Tested 5 Oct 2026</span></div>
+    <a class="cta" href="#start">Start the setup</a><a class="cta ghost" href="demo.html">See the live dashboard ↗</a>
+  </div>
+</header>
+
+<div class="wrap layout">
+  <nav class="toc">
+    <b>The guide</b>
+    <a href="#start">0 · What you need</a>
+    <a href="#posts">1 · Pull your posts</a>
+    <a href="#voice">2 · Map your voice</a>
+    <a href="#skills">3 · Install the 12 skills</a>
+    <a href="#typefully">4 · Connect Typefully</a>
+    <a href="#week">5 · Plan + draft your week</a>
+    <a href="#carousel">6 · Make a carousel</a>
+    <a href="#publish">7 · Review + publish</a>
+    <a href="#dashboard">8 · Your dashboard</a>
+    <a href="#rules">The rules I learned</a>
+    <a href="#routine">Weekly routine</a>
+    <a href="#fix">If something breaks</a>
+  </nav>
+
+  <main>
+
+  <section id="how">
+    <h2>How it works</h2>
+    <p>Claude reads your old posts, learns how you actually write, and saves it as one file called <code>voice.md</code>. A free pack of 12 LinkedIn skills uses that file to plan your week, write the drafts and strip out anything that sounds like AI. Typefully is the bridge to LinkedIn. Nothing goes out until you say yes.</p>
+    <div class="grid2">
+      <img src="assets/workflow.jpg" alt="Workflow: your last 20 LinkedIn posts, three ways to pull them (Apify, Claude in Chrome, Agent Reach), Claude reads them, you get a voice map and voice.md, and every post sounds like you." style="width:100%;border-radius:16px;border:1px solid var(--warm)">
+      <div>
+        <div class="card"><b>📄 voice.md</b><br>Your rulebook. How you open, your rhythm, your words, what's banned.</div>
+        <div class="card"><b>🧩 12 LinkedIn skills</b><br>Post Writer, Humanizer, Post Audit, Content Planner, Hook Extractor and 7 more. Free, open source.</div>
+        <div class="card"><b>📤 Typefully</b><br>Claude puts drafts straight into your Typefully. You read, tweak, then publish or schedule.</div>
+        <div class="card"><b>🗂 A dashboard</b><br>One page with your week, your voice map and every draft. <a href="demo.html">See mine</a>.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="start">
+    <span class="step">STEP 0</span>
+    <h2>What you need</h2>
+    <table>
+      <tr><th>Thing</th><th>Why</th><th>Cost</th></tr>
+      <tr><td><b>Claude Pro or Max</b></td><td>Skills and custom connectors need a paid plan with code execution turned on</td><td><span class="tag paid">Paid</span></td></tr>
+      <tr><td><b>Typefully account</b></td><td>Connects Claude to your LinkedIn. Link your LinkedIn inside Typefully first</td><td><span class="tag">Free plan works</span></td></tr>
+      <tr><td><b>Your LinkedIn</b></td><td>At least 10 posts is ideal. No posts yet? Use the Interviewer skill in step 3</td><td><span class="tag">Free</span></td></tr>
+      <tr><td>Apify <i>(optional)</i></td><td>Fastest way to pull your posts</td><td><span class="tag">Free credits</span></td></tr>
+    </table>
+    <div class="note ok">In Claude, go to <b>Settings → Capabilities</b> and make sure <b>code execution</b> is on. Skills won't load without it.</div>
+  </section>
+
+  <section id="posts">
+    <span class="step">STEP 1</span>
+    <h2>Pull your last 20 posts</h2>
+    <p>Claude needs to read how you write. Pick one of three ways. They all end in the same place.</p>
+    <div class="grid3">
+      <div class="opt"><span class="n">1</span><h4>Apify</h4>A ready-made scraper pulls your posts. No login needed.<small>About 4 cents for 20 posts. Easiest to repeat.</small></div>
+      <div class="opt"><span class="n">2</span><h4>Claude in Chrome</h4>Claude reads your activity page in your own browser.<small>Uses your Claude plan. Zero setup.</small></div>
+      <div class="opt"><span class="n">3</span><h4>Agent Reach</h4>A free open-source toolkit that lets Claude read 15 platforms.<small>Free, a little techy. For tinkerers.</small></div>
+    </div>
+
+    <h3>Method 1 · Apify</h3>
+    <ol><li>Make a free account at <a href="https://apify.com" target="_blank">apify.com</a>.</li><li>In Claude: <b>Settings → Connectors</b>, add the Apify connector and sign in.</li><li>Paste this, with your profile link:</li></ol>
+    <div class="prompt"><span class="lbl">Prompt · Apify</span><button class="copy">Copy</button>Connect to my Apify account and run the harvestapi/linkedin-profile-posts actor on linkedin.com/in/YOUR-PROFILE
+
+Pull my last 20 posts. Original posts only, no reposts.
+
+For each one, give me the full text, the date and the reactions. Then use them to build my voice map.</div>
+    <div class="note">If Apify says <b>"monthly usage hard limit exceeded"</b>, your free credits are used up for the month. Switch to Method 2. That's exactly what happened to me while testing this.</div>
+
+    <h3>Method 2 · Claude in Chrome</h3>
+    <ol><li>Install the Claude in Chrome extension and sign in.</li><li>Be logged into LinkedIn in that Chrome.</li><li>Paste this:</li></ol>
+    <div class="prompt"><span class="lbl">Prompt · Claude in Chrome</span><button class="copy">Copy</button>Open my LinkedIn in Chrome and go to linkedin.com/in/YOUR-PROFILE/recent-activity/all
+
+Scroll until you've seen my last 20 original posts. Skip reposts.
+
+Copy the full text, date and reactions of each one, then use them to build my voice map.
+
+Only read. Don't like, comment or post anything.</div>
+
+    <h3>Method 3 · Agent Reach</h3>
+    <p>Runs in Claude Code. It needs a one-time LinkedIn login, and Claude will walk you through it.</p>
+    <div class="prompt"><span class="lbl">Prompt · Agent Reach</span><button class="copy">Copy</button>Install Agent Reach from github.com/Panniantong/Agent-Reach and set up its LinkedIn channel. Walk me through any login step.
+
+Then use it to pull my last 20 LinkedIn posts from linkedin.com/in/YOUR-PROFILE, with the full text, date and reactions.
+
+If it can't fetch posts directly, use its web reader on my activity page. Then build my voice map.</div>
+  </section>
+
+  <section id="voice">
+    <span class="step">STEP 2</span>
+    <h2>Map your voice, save voice.md</h2>
+    <p>Once Claude has your posts, run this in the same chat. You get a visual voice map plus a <code>voice.md</code> file that every skill reads from now on.</p>
+    <div class="prompt"><span class="lbl">Prompt · Voice map</span><button class="copy">Copy</button>Read my last 20 LinkedIn posts and build me a voice map as a one-page artifact.
+
+Show me:
+1. A radar chart of me vs default AI on honest, direct, warm, story-led, real numbers and casual. Score each 0 to 100 with one line of proof from my posts.
+2. A word cloud of the words I actually use, sized by how often.
+3. The words I never use, crossed out.
+4. My rhythm: my sentence lengths vs a typical AI post.
+5. My signature moves, with a count out of 20.
+
+Then save it all as voice.md, so everything you write for me sounds like me.</div>
+    <h3>What mine found (19 real posts)</h3>
+    <ul>
+      <li>My 2024 posts opened like press releases ("Kickstart Your 2025 B2B SaaS Marketing Strategy!"). My 2026 ones open with a scene ("It's 11:43pm. On a Friday.").</li>
+      <li>12 of 19 posts had a real number. 3.6 emojis per post. My most-used word is "real".</li>
+      <li>It caught <b>14 dashes</b>. Readers clock dashes as AI now, so they're banned.</li>
+    </ul>
+    <div class="note"><b>Check the map against reality.</b> My first demo map said I end 14 of 20 posts on a question. The real number was 1. Always read the counts before you trust them.</div>
+    <h3>Add your own rules to voice.md</h3>
+    <div class="prompt"><span class="lbl">Prompt · Rules</span><button class="copy">Copy</button>Add these rules to my voice.md:
+- Open with a scene or a moment, never an announcement
+- One real number per post, and it must be true
+- CAPS for one word, max
+- No dashes. Use commas and full stops
+- 3 emojis max
+- Never invent a story, a stat or a client. If you need one, ask me
+- You draft. I approve. Nothing posts without my yes</div>
+  </section>
+
+  <section id="skills">
+    <span class="step">STEP 3</span>
+    <h2>Install the 12 LinkedIn skills</h2>
+    <p>The pack is <a href="https://github.com/sergebulaev/linkedin-skills" target="_blank"><b>sergebulaev/linkedin-skills</b></a>: free, MIT licensed, about 4,100 GitHub stars, updated this month. It has 12 skills now (it was 11 a few weeks ago) and 20 hook formulas.</p>
+    <h3>Claude desktop or claude.ai</h3>
+    <ol><li>Open <b>Customize → Skills</b>.</li><li>Choose <b>Add from a repository</b>.</li><li>Paste <code>sergebulaev/linkedin-skills</code> and sync.</li><li>Done. The skills switch on by themselves when you talk about LinkedIn.</li></ol>
+    <h3>Claude Code</h3>
+    <div class="prompt"><span class="lbl">Terminal</span><button class="copy">Copy</button>/plugin marketplace add sergebulaev/linkedin-skills
+/plugin install linkedin-skills@linkedin-skills</div>
+    <table>
+      <tr><th>Skill</th><th>What I use it for</th></tr>
+      <tr><td>Interviewer</td><td>Builds a Story Bank of your real numbers and moments. Best place to start if you've never posted</td></tr>
+      <tr><td>Hook Extractor</td><td>Turns your best-performing posts into reusable hook templates</td></tr>
+      <tr><td>Content Planner</td><td>A 7-day plan: topics, formats, hooks, times</td></tr>
+      <tr><td>Post Writer</td><td>Drafts in your voice using 20 hook formulas</td></tr>
+      <tr><td>Humanizer</td><td>Strips AI tells. It shows how detectors disagree, but doesn't promise to beat them</td></tr>
+      <tr><td>Post Audit</td><td>Checks each draft before you publish</td></tr>
+      <tr><td>Comment Drafter · Reply Handler</td><td>Drafts comments and replies. You pick which to send</td></tr>
+      <tr><td>Engagement Monitor</td><td>Shows who keeps engaging and who looks like a prospect</td></tr>
+      <tr><td>Profile Optimizer · Repurposer · Employee Advocacy</td><td>Headline and About rewrites, reels to posts, team programs</td></tr>
+    </table>
+  </section>
+
+  <section id="typefully">
+    <span class="step">STEP 4</span>
+    <h2>Connect Typefully</h2>
+    <ol>
+      <li>Sign up at <a href="https://typefully.com" target="_blank">typefully.com</a> and connect your LinkedIn there first.</li>
+      <li>In Claude: <b>Settings → Connectors → Add custom connector</b>.</li>
+      <li>Paste <code>https://mcp.typefully.com/mcp</code>, click Add and sign in to Typefully.</li>
+      <li>Test it:</li>
+    </ol>
+    <div class="prompt"><span class="lbl">Prompt · Test the connection</span><button class="copy">Copy</button>Check my Typefully connection. Which accounts are connected, and how many publishes do I have left this month?</div>
+    <div class="note ok">Mine said: LinkedIn connected, 10 publishes left this month. Typefully saves everything as a <b>draft</b> unless you clearly tell it to publish. Publishing now always asks you to confirm first.</div>
+  </section>
+
+  <section id="week">
+    <span class="step">STEP 5</span>
+    <h2>Plan and draft your week</h2>
+    <p>Bring your own ideas. Mine came from a WhatsApp note to myself: "Who's actually going to pay for AI?", "Is AI cheaper than DIY?", "No one wants anything new anymore". Your opinions are the part AI can't make up.</p>
+    <div class="prompt"><span class="lbl">Prompt · Draft the week</span><button class="copy">Copy</button>Use my voice.md and the LinkedIn skills.
+
+Here are my 5 ideas for this week:
+1. [idea]
+2. [idea]
+3. [idea]
+4. [idea]
+5. [idea]
+
+Plan Monday to Friday, one post a day at 9:00. Write each draft in my voice, run the humanizer, then the post audit.
+
+Ground any facts in real sources and list the sources for each post. If a post needs a personal story or number you don't have, ask me instead of inventing one.
+
+Save all 5 to my Typefully as drafts. Don't schedule or publish anything.</div>
+  </section>
+
+  <section id="carousel">
+    <span class="step">STEP 6</span>
+    <h2>Make a carousel</h2>
+    <p>LinkedIn carousels are PDFs. Claude can design the slides as a web page, turn them into images, stitch them into a PDF and attach it to your Typefully draft.</p>
+    <div class="shots"><img src="assets/carousel-1.jpg" alt="Slide 1: No one wants anything new anymore"><img src="assets/carousel-2.jpg" alt="Slide 2: 106,000 new songs a day"><img src="assets/carousel-3.jpg" alt="Slide 3: Millions of apps, we open about 10"><img src="assets/carousel-4.jpg" alt="Slide 4: New has to be 9x better"></div>
+    <div class="prompt"><span class="lbl">Prompt · Carousel</span><button class="copy">Copy</button>Make a 4-slide LinkedIn carousel for my post "[post title]".
+
+Slide 1: a hook that stops the scroll.
+Slides 2 to 3: one piece of evidence each, with a big number, a simple visual and a small source line.
+Slide 4: the takeaway and a question.
+
+Style: [describe your brand, or attach 2 slides you've made before]. Size 1080x1350.
+
+Render each slide as an image, combine them into one PDF, upload it to Typefully and attach it to that draft. Then show me the slides.</div>
+    <div class="note">Put the sources in the <b>first comment</b>, not the post. It keeps the post clean and makes you look like you did your homework (because you did).</div>
+  </section>
+
+  <section id="publish">
+    <span class="step">STEP 7</span>
+    <h2>Review, then publish</h2>
+    <p>Open each draft in Typefully. Read it out loud. If it doesn't sound like you, fix it or ask Claude to redo it. Then:</p>
+    <div class="prompt"><span class="lbl">Prompt · Publish</span><button class="copy">Copy</button>Show me exactly what will go out for "[post title]": the text, the attachment and the first comment. Then wait for me to say "yes, publish".</div>
+    <div class="prompt"><span class="lbl">Prompt · Or schedule</span><button class="copy">Copy</button>Schedule my approved drafts in Typefully for 9:00 on their days. Leave anything I haven't approved as a draft.</div>
+  </section>
+
+  <section id="dashboard">
+    <span class="step">STEP 8</span>
+    <h2>Your dashboard</h2>
+    <p><a href="demo.html"><b>Open my dashboard ↗</b></a> It plays my week on its own: drafting, humanizing, scheduling. It has 5 tabs: Live draft, My voice, 12 skills, Humanizer and This week. The data is mine, as a demo.</p>
+    <p>To build yours, paste this into Claude after steps 1 to 5:</p>
+    <div class="prompt"><span class="lbl">Prompt · Build my dashboard</span><button class="copy">Copy</button>Build me a one-page LinkedIn dashboard as an artifact, using my real data from this chat.
+
+Tabs:
+1. My voice: my voice map from voice.md, plus a searchable table of the posts it learned from, with dates and impressions.
+2. 12 skills: which LinkedIn skills I have installed and what each one did this week.
+3. This week: a Monday to Friday calendar of my Typefully drafts. Click a day to read the full post, edit it, and see its status (draft, waiting for me, scheduled, published).
+4. Humanizer: before and after for one draft, with the AI tells crossed out.
+
+Keep it clean and on brand: [your colours]. Don't add any button that publishes without asking me first.</div>
+    <div class="note ok"><b>Tip for filming:</b> make the dashboard full screen, then record. My demo version has a ↺ replay button and a speed setting for exactly this.</div>
+  </section>
+
+  <section id="rules">
+    <h2>The rules I learned building this</h2>
+    <div class="card">
+      <ul class="check">
+        <li><b>It drafts, I approve.</b> Nothing auto-posts. Ever.</li>
+        <li><b>Don't post on LinkedIn that AI writes your LinkedIn.</b> Post your opinions. The setup is the how, not the content.</li>
+        <li><b>Never let it invent a story or a stat.</b> If a draft says "I counted 9 apps today", make sure you did.</li>
+        <li><b>Ground hot takes in real research</b> and list the sources in the first comment.</li>
+        <li><b>Check the counts.</b> The voice map can be confidently wrong. Read it against your real posts.</li>
+        <li><b>Re-check the skill pack before you share it.</b> It went from 11 to 12 skills in a few weeks.</li>
+        <li><b>Bring the ideas yourself.</b> A note to yourself on WhatsApp is enough. AI is great at drafting and terrible at having your opinions.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="routine">
+    <h2>Weekly routine (20 minutes)</h2>
+    <table>
+      <tr><th>When</th><th>What</th><th>Time</th></tr>
+      <tr><td>Sunday</td><td>Drop 5 ideas into Claude, run the "Draft the week" prompt</td><td>5 min</td></tr>
+      <tr><td>Sunday</td><td>Read every draft in Typefully, fix anything that isn't you</td><td>10 min</td></tr>
+      <tr><td>Sunday</td><td>Schedule the approved ones for 9:00</td><td>1 min</td></tr>
+      <tr><td>Daily</td><td>Reply to comments yourself (Reply Handler can draft them)</td><td>5 min</td></tr>
+      <tr><td>Monthly</td><td>Re-run the voice map with your newest posts</td><td>5 min</td></tr>
+    </table>
+  </section>
+
+  <section id="fix">
+    <h2>If something breaks</h2>
+    <table>
+      <tr><th>Problem</th><th>Fix</th></tr>
+      <tr><td>Skills don't show up</td><td>Turn on code execution in Settings → Capabilities, then sync the repo again</td></tr>
+      <tr><td>Apify: "monthly usage hard limit exceeded"</td><td>Free credits are used up. Use Claude in Chrome (Method 2) instead</td></tr>
+      <tr><td>Typefully connector missing</td><td>Custom connectors need Claude Pro or Max. Check the URL is exactly <code>https://mcp.typefully.com/mcp</code></td></tr>
+      <tr><td>The post isn't on my LinkedIn</td><td>It's probably still a draft. Check Typefully. Claude won't publish without your yes</td></tr>
+      <tr><td>Carousel shows as images, not a swipe</td><td>Ask Claude to combine the slides into one PDF and attach the PDF instead</td></tr>
+      <tr><td>Drafts still sound like AI</td><td>Re-run the voice map with more posts, and add the banned words to voice.md</td></tr>
+    </table>
+  </section>
+  </main>
+</div>
+
+<footer>Made by <a href="https://www.instagram.com/vibha.in.progress/" target="_blank">@vibha.in.progress</a> · Skills by <a href="https://github.com/sergebulaev/linkedin-skills" target="_blank">sergebulaev/linkedin-skills</a> (MIT) · Not affiliated with LinkedIn, Typefully, Apify or Anthropic.<br>Love, Vibha 💛</footer>
+<div class="toast" id="toast">Copied ✓</div>
+<script>
+document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{const t=[...b.parentElement.childNodes].filter(n=>n.nodeType===3).map(n=>n.textContent).join('').trim();
+ const done=()=>{const el=document.getElementById('toast');el.classList.add('on');setTimeout(()=>el.classList.remove('on'),1500)};
+ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(done).catch(()=>{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done()}catch(e){}a.remove()})});
+</script>
+</body>
+</html>
